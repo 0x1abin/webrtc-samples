@@ -40,7 +40,7 @@
         and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API">Broadcast Channel</a>
     </p>
 
-    <div id="selectSource" class="hidden">
+    <!-- <div id="selectSource" class="hidden">
         <div id="select">Select an audio &amp; video source, then click <strong>Get media</strong>:</div>
         <div class="source">
             <label for="audioSrc">Audio source:</label>
@@ -50,6 +50,28 @@
             <label for="videoSrc">Video source:</label>
             <select id="videoSrc"></select>
         </div>
+    </div> -->
+
+    <div class="select">
+        <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
+    </div>
+
+    <div class="select">
+        <label for="audioOutput">Audio output destination: </label><select id="audioOutput"></select>
+    </div>
+
+    <div class="select">
+        <label for="videoSource">Video source: </label><select id="videoSource"></select>
+    </div>
+
+    <div id="localPeerID">
+        <h4>localPeerID:</h4>
+        <textarea></textarea>
+    </div>
+
+    <div id="remotePeerID">
+        <h4>remotePeerID:</h4>
+        <textarea></textarea>
     </div>
 
     <video id="localVideo" playsinline autoplay muted></video>
@@ -57,6 +79,7 @@
 
     <div class="box">
         <button id="startButton">Start</button>
+        <button id="callButton">Call</button>
         <button id="hangupButton">Hang Up</button>
     </div>
 
@@ -68,8 +91,10 @@
 </div>
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="../../../js/lib/ga.js"></script>
+<!-- <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script> -->
+<script src="js/browserMqtt.js" async></script>
 <script src="js/main.js" async></script>
 
-<script src="../../../js/lib/ga.js"></script>
 </body>
 </html>

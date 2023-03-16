@@ -14,7 +14,7 @@ button#hangupButton {
     margin: 0;
 }
 
-video {
+/* video {
   --width: 45%;
   width: var(--width);
   height: calc(var(--width) * 0.75);
@@ -24,7 +24,7 @@ video {
 
 video#localVideo {
   margin: 0 20px 20px 0;
-}
+} */
 
 div.box {
   margin: 1em;
@@ -46,9 +46,9 @@ form {
   margin: 0 0 1em 0;
   white-space: nowrap;
 }
-h2 {
+/* h2 {
   margin: 0 0 0.5em 0;
-}
+} */
 label {
   margin: 0 0.4em 0 0;
 }
@@ -59,15 +59,15 @@ label {
     margin: 0 11px 10px 0;
   }
 
-  video {
+  /* video {
     height: 90px;
     margin: 0 0 10px 0;
     width: calc(50% - 7px);
-  }
+  } */
 
-  video#localVideo {
+  /* video#localVideo {
     margin: 0 10px 20px 0;
-  }
+  } */
 
   div#selectSource {
     margin: 0 0 0.5em 0;

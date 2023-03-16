@@ -24,6 +24,7 @@ signaling.onmessage = e => {
     console.log('not ready yet');
     return;
   }
+  console.log('received', e.data);
   switch (e.data.type) {
     case 'offer':
       handleOffer(e.data);
@@ -53,6 +54,11 @@ signaling.onmessage = e => {
   }
 };
 
+function sendSignalingMessage(message) {
+  console.log('sending', message);
+  signaling.postMessage(message);
+}
+
 startButton.onclick = async () => {
   localStream = await navigator.mediaDevices.getUserMedia({audio: true, video: true});
   localVideo.srcObject = localStream;
@@ -61,12 +67,12 @@ startButton.onclick = async () => {
   startButton.disabled = true;
   hangupButton.disabled = false;
 
-  signaling.postMessage({type: 'ready'});
+  sendSignalingMessage({type: 'ready'});
 };
 
 hangupButton.onclick = async () => {
   hangup();
-  signaling.postMessage({type: 'bye'});
+  sendSignalingMessage({type: 'bye'});
 };
 
 async function hangup() {
@@ -92,7 +98,7 @@ function createPeerConnection() {
       message.sdpMid = e.candidate.sdpMid;
       message.sdpMLineIndex = e.candidate.sdpMLineIndex;
     }
-    signaling.postMessage(message);
+    sendSignalingMessage(message);
   };
   pc.ontrack = e => remoteVideo.srcObject = e.streams[0];
   localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
@@ -102,7 +108,7 @@ async function makeCall() {
   await createPeerConnection();
 
   const offer = await pc.createOffer();
-  signaling.postMessage({type: 'offer', sdp: offer.sdp});
+  sendSignalingMessage({type: 'offer', sdp: offer.sdp});
   await pc.setLocalDescription(offer);
 }
 
@@ -115,7 +121,7 @@ async function handleOffer(offer) {
   await pc.setRemoteDescription(offer);
 
   const answer = await pc.createAnswer();
-  signaling.postMessage({type: 'answer', sdp: answer.sdp});
+  sendSignalingMessage({type: 'answer', sdp: answer.sdp});
   await pc.setLocalDescription(answer);
 }
 
