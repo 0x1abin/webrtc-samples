@@ -128,8 +128,9 @@ const peer = new Peer({
 remoteId = peer.generateUUID();
 
 peer.on('open', (id) => {
-  logMessage('My peer ID is: ' + id);
   myPeerId = id;
+  logMessage('My peer ID is: ' + id);
+  logMessage('Remote ID is: ' + remoteId);
 });
 
 peer.on('error', (error) => {
@@ -142,7 +143,8 @@ peer.on('connection', (conn) => {
   dataConnection = conn;
 
   conn.on('data', (data) => {
-    logMessage(`received: ${data}`);
+    logMessage(`received data`);
+    // logMessage(`received: ${data}`);
     const mediaSource = JSON.parse(data);
     if (mediaSource && mediaSource.type === 'mediaSource') {
       mediaSourceSelectRender(mediaSource.data);
@@ -172,6 +174,11 @@ peer.on('disconnected', () => {
 const connectToPeer = () => {
   const peerId = peerIdEl.value;
   logMessage(`connecting to ${peerId}`);
+  const message = {
+    type: 'callme',
+    src: myPeerId
+  };
+  peer.push(peerId, JSON.stringify(message));
 };
 
 const getCameraURL = () => {

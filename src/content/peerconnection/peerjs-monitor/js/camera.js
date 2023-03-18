@@ -17,7 +17,6 @@ const remoteId = urlParams.get('remoteId');
 console.log('myPeerId:', myPeerId);
 console.log('remoteId:', remoteId);
 
-const mediaSource = {audioinput: [], videoinput: []};
 let mediaConnection = null;
 let dataConnection = null;
 
@@ -36,6 +35,7 @@ audioOutputSelect.disabled = !('sinkId' in HTMLMediaElement.prototype);
 // let localStream;
 
 function gotDevices(deviceInfos) {
+  const mediaSource = {audioinput: [], videoinput: []};
   // Handles being called several times to update labels. Preserve values.
   const values = selectors.map(select => select.value);
   selectors.forEach(select => {
@@ -166,6 +166,15 @@ peer.on('open', (id) => {
   // myPeerId = id;
 
   dataConnectionStart(remoteId);
+});
+
+peer.on('push', (message) => {
+  logMessage(`push message: ${message}`);
+  const messageObj = JSON.parse(message);
+  if (messageObj.type === 'callme') {
+    logMessage(`call to ${messageObj.src}`);
+    dataConnectionStart(messageObj.src);
+  }
 });
 
 peer.on('error', (error) => {
