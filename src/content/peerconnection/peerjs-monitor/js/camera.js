@@ -257,5 +257,5 @@ const copyContent = async () => {
   }
 };
 
-window.connectToPeerClick = connectToPeerClick;
+// window.connectToPeerClick = connectToPeerClick;
 window.copyContent = copyContent;
