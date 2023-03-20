@@ -6,6 +6,7 @@ navigator.mediaDevices.getUserMedia({audio: true, video: false});
 const Peer = window.Peer;
 let dataConnection;
 
+const qrcode = new QRCode('qrcode');
 const messagesEl = document.querySelector('.messages');
 const peerIdEl = document.querySelector('#connect-to-peer');
 
@@ -95,8 +96,10 @@ audioInputSelect.onchange = mediaSourceChange;
 videoSelect.onchange = mediaSourceChange;
 audioOutputSelect.onchange = changeAudioDestination;
 
-let myPeerId = null;
-let remoteId = null;
+const myPeerId = crypto.randomUUID();
+const remoteId = crypto.randomUUID();
+console.log('myPeerId:', myPeerId);
+console.log('remoteId:', remoteId);
 
 const logMessage = (message) => {
   console.log('message:', message);
@@ -111,7 +114,7 @@ const renderVideo = (stream) => {
 };
 
 // Register with the peer server
-const peer = new Peer({
+const peer = new Peer(myPeerId, {
   debug: 3,
   secure: true,
   host: 'broker-cn.emqx.io',
@@ -125,12 +128,10 @@ const peer = new Peer({
   }
 });
 
-remoteId = peer.generateUUID();
-
 peer.on('open', (id) => {
-  myPeerId = id;
   logMessage('My peer ID is: ' + id);
   logMessage('Remote ID is: ' + remoteId);
+  qrcode.makeCode(getCameraURL());
 });
 
 peer.on('error', (error) => {

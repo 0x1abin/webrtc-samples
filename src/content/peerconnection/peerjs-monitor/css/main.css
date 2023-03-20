@@ -28,10 +28,10 @@ form {
 input {
   border: 1px solid silver;
   display: block;
-  font-size: 16px;
+  font-size: 13px;
   margin-bottom: 10px;
   padding: 5px;
-  width: 100%;
+  width: 280px;
 }
 
 form button {
