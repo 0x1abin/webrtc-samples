@@ -22,7 +22,7 @@
     <script src="js/main.js" type="module"></script>
   </head>
 
-  <body style="background-color:rgb(67, 67, 67);color:rgb(207, 207, 207)">
+  <body>
 
     <div class="select">
         <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
@@ -36,7 +36,7 @@
         <label for="videoSource">Video source: </label><select id="videoSource"></select>
     </div>
 
-    <video id="remoteVideo" playsinline autoplay></video>
+    <video id="remoteVideo" playsinline autoplay controls hidden="true"></video>
     
     <div id="qrcode"></div>
 

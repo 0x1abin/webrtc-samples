@@ -110,6 +110,7 @@ const logMessage = (message) => {
 
 const renderVideo = (stream) => {
   console.log('render video');
+  remoteVideo.hidden = false;
   remoteVideo.srcObject = stream;
 };
 
